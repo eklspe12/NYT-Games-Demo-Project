@@ -13,13 +13,16 @@ import {
 const WordleBoard = () => {
 	const [rows, setRows] = useState(Array(6).fill(Array(5).fill('')));
 	const [currentGuess, setCurrentGuess] = useState('');
+	const [guessNum, setGuessNum] = useState(1);
 	const [currentRow, setCurrentRow] = useState(0);
 	const [answer, setAnswer] = useState('');
 	const [message, setMessage] = useState('');
+	const [wrongLetterCount, setWrongLetterCount] = useState(0);
+	const [streak, setStreak] = useState(0);
 	useEffect(() => {
-		const newAnswer = randomWord(wordArray); // Call the randomWord function
-		setAnswer(newAnswer); // Set the answer state
-		console.log(newAnswer); // Log the answer for debugging
+		const newAnswer = randomWord(wordArray);
+		setAnswer(newAnswer);
+		console.log(newAnswer);
 	}, []);
 
 	const handleSubmit = () => {
@@ -32,8 +35,13 @@ const WordleBoard = () => {
 			setCurrentRow(currentRow + 1);
 			if (currentGuess === answer) {
 				setMessage('Good Job!');
+				//calculate score
+				setGuessNum(0);
+				console.log(guessNum);
 			} else {
 				setMessage('');
+				setGuessNum(guessNum + 1);
+				console.log(guessNum);
 			}
 			setCurrentGuess('');
 		} else {

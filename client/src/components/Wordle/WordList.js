@@ -495,6 +495,7 @@ export function randomWord(arr) {
 	let randomIndex = Math.floor(Math.random() * arr.length);
 	return arr[randomIndex].toLowerCase(); //sets value of newAnswer to a random string from Array
 }
+//add recursion to make sure word is exactly 5 letters
 
 export function correctAnswer(str) {
 	wordArray = wordArray.filter((word) => word !== str); // updates wordArray to remove correct answer
