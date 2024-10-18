@@ -1,6 +1,6 @@
 import React from 'react';
 import ReturnHomeButton from '../ReturnHomeButton';
-import WordleBoard from './WorldeBoard';
+import WordleBoard from './WordleBoard';
 const Wordle = () => {
 	return (
 		<div>

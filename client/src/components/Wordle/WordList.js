@@ -1,4 +1,4 @@
-const wordArray = [
+export let wordArray = [
 	'About',
 	'Alert',
 	'Argue',
@@ -489,11 +489,15 @@ const wordArray = [
 	'Voice',
 ];
 
-let usedWords = [];
-
-function randomWord(arr) {
+export let usedWords = [];
+export let newAnswer = randomWord(wordArray);
+export function randomWord(arr) {
 	let randomIndex = Math.floor(Math.random() * arr.length);
-	return arr[randomIndex];
+	return arr[randomIndex].toLowerCase(); //sets value of newAnswer to a random string from Array
 }
 
-console.log(randomWord(wordArray));
+export function correctAnswer(str) {
+	wordArray = wordArray.filter((word) => word !== str); // updates wordArray to remove correct answer
+	usedWords.push(str); //pushes correct answer into usedWords Array
+	randomWord(wordArray); //resets value of newAnswer
+}

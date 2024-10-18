@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WordleRow from './WordleRow';
 import { Box, Text } from '@chakra-ui/react';
 import InputRow from './InputRow';
 import Submit from './Submit';
+import {
+	wordArray,
+	usedWords,
+	newAnswer,
+	correctAnswer,
+	randomWord,
+} from './WordList';
 const WordleBoard = () => {
 	const [rows, setRows] = useState(Array(6).fill(Array(5).fill('')));
 	const [currentGuess, setCurrentGuess] = useState('');
 	const [currentRow, setCurrentRow] = useState(0);
-	const answer = 'fruit';
+	const [answer, setAnswer] = useState('');
 	const [message, setMessage] = useState('');
+	useEffect(() => {
+		const newAnswer = randomWord(wordArray); // Call the randomWord function
+		setAnswer(newAnswer); // Set the answer state
+		console.log(newAnswer); // Log the answer for debugging
+	}, []);
 
 	const handleSubmit = () => {
 		if (currentGuess.length === 5) {
