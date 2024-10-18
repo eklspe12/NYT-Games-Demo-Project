@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import WordleTile from './WordleTile';
-const InputRow = ({ currentGuess }) => {
+const InputRow = ({ currentGuess, setSubmitted, submitted }) => {
 	return (
 		<Box display={'flex'} alignItems={'center'}>
 			<Box display={'flex'}>
