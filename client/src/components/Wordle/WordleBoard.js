@@ -5,6 +5,7 @@ import InputRow from './InputRow';
 import Submit from './Submit';
 import { scoreCalculator } from './ScoreCalculator';
 import ScoreDisplay from './ScoreDisplay';
+import WrongLetterDisplay from './WrongLetterDisplay';
 import {
 	wordArray,
 	usedWords,
@@ -21,6 +22,7 @@ const WordleBoard = () => {
 	const [message, setMessage] = useState('');
 	const [wrongLetters, setWrongLetters] = useState([]);
 	const [streak, setStreak] = useState(0);
+	const [score, setScore] = useState(0);
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
@@ -38,8 +40,14 @@ const WordleBoard = () => {
 			if (currentGuess === answer) {
 				setMessage('Good Job!');
 				setStreak(streak + 1);
+				let wrongLetterCount = wrongLetters.length;
+				let calculatedScore = scoreCalculator(
+					guessNum,
+					wrongLetterCount,
+					streak
+				);
+				setScore(score + calculatedScore);
 				setGuessNum(0);
-				//scoreCalculator(guessNum, wrongLetterCount, streak)
 
 				console.log(guessNum);
 			} else {
@@ -69,6 +77,9 @@ const WordleBoard = () => {
 
 	return (
 		<Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+			<Box>
+				<WrongLetterDisplay wrongLetters={wrongLetters} />
+			</Box>
 			<Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
 				{rows.map((letters, index) => (
 					<Box key={index}>
@@ -87,7 +98,7 @@ const WordleBoard = () => {
 				/>
 			</Box>
 			<Box>
-				<ScoreDisplay />
+				<ScoreDisplay score={score} />
 			</Box>
 		</Box>
 	);
