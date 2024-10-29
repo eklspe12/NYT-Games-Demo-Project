@@ -12,6 +12,21 @@ code {
 		monospace;
 }
 
+.flip-tile {
+	position: relative;
+	text-align: center;
+	perspective: 1000px;
+}
+/* backup */
+
+.flip-content {
+	width: 100%;
+	height: 100%;
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
 .wordle-tile {
 	border: 5px solid black;
 	width: 60px;
@@ -22,6 +37,7 @@ code {
 	justify-content: center;
 	font-size: 30px;
 	font-weight: bold;
+	perspective: 1000px;
 }
 
 .correct {
@@ -64,4 +80,17 @@ code {
 	font-weight: bold;
 	color: white;
 	background-color: black;
+}
+
+.submitted {
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+}
+
+.submitted .flip-content {
+	transform: rotateY(180deg);
+}
+.wordle-tile,
+.flip-content > div {
+	backface-visibility: hidden;
 }

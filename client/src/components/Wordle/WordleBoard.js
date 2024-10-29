@@ -29,6 +29,18 @@ const WordleBoard = () => {
 		console.log(newAnswer);
 	}, []);
 
+	const resetGame = () => {
+		setRows(Array(6).fill(Array(5).fill('')));
+		setCurrentRow(0);
+		setCurrentGuess('');
+		setGuessNum(1);
+		setWrongLetters([]);
+		const newAnswer = randomWord(wordArray);
+		setAnswer(newAnswer);
+		setMessage('New round!');
+		console.log(newAnswer);
+	};
+
 	const handleSubmit = () => {
 		if (currentGuess.length === 5) {
 			const newRow = currentGuess.split('');
@@ -40,6 +52,7 @@ const WordleBoard = () => {
 			if (currentGuess === answer) {
 				setMessage('Good Job!');
 				setStreak(streak + 1);
+				//maybe change to a const newstreak = '' then set streak to new streak
 				let wrongLetterCount = wrongLetters.length;
 				let calculatedScore = scoreCalculator(
 					guessNum,
@@ -47,7 +60,10 @@ const WordleBoard = () => {
 					streak
 				);
 				setScore(score + calculatedScore);
-				setGuessNum(0);
+				setGuessNum(1);
+				setTimeout(() => {
+					resetGame();
+				}, 1500);
 
 				console.log(guessNum);
 			} else {
