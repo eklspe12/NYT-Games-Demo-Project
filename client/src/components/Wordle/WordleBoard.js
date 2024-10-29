@@ -6,6 +6,9 @@ import Submit from './Submit';
 import { scoreCalculator } from './ScoreCalculator';
 import ScoreDisplay from './ScoreDisplay';
 import WrongLetterDisplay from './WrongLetterDisplay';
+import WelcomeMessage from './WelcomeMessage';
+import EndGameLoseMessage from './EndGameLoseMessage';
+import EndGameWinMessage from './EndGameWinMessage';
 import {
 	wordArray,
 	usedWords,
@@ -23,13 +26,14 @@ const WordleBoard = () => {
 	const [wrongLetters, setWrongLetters] = useState([]);
 	const [streak, setStreak] = useState(0);
 	const [score, setScore] = useState(0);
+	const [gameStatus, setGameStatus] = useState('ongoing');
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
 		console.log(newAnswer);
 	}, []);
 
-	const resetGame = () => {
+	const resetBoard = () => {
 		setRows(Array(6).fill(Array(5).fill('')));
 		setCurrentRow(0);
 		setCurrentGuess('');
@@ -37,11 +41,28 @@ const WordleBoard = () => {
 		setWrongLetters([]);
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
-		setMessage('New round!');
+		setMessage(streak > 0 ? `Streak Bonus +${streak * 500}!` : 'New Word!');
+		console.log(newAnswer);
+		setGameStatus('ongoing');
+	};
+	const resetGame = () => {
+		setRows(Array(6).fill(Array(5).fill('')));
+		setCurrentRow(0);
+		setScore(0);
+		setStreak(0);
+		setCurrentGuess('');
+		setGuessNum(1);
+		setWrongLetters([]);
+		const newAnswer = randomWord(wordArray);
+		setAnswer(newAnswer);
+		setMessage('');
 		console.log(newAnswer);
 	};
 
 	const handleSubmit = () => {
+		if (gameStatus !== 'ongoing') {
+			// return;
+		}
 		if (currentGuess.length === 5) {
 			const newRow = currentGuess.split('');
 			const updatedRows = [...rows];
@@ -51,18 +72,18 @@ const WordleBoard = () => {
 			setCurrentRow(currentRow + 1);
 			if (currentGuess === answer) {
 				setMessage('Good Job!');
-				setStreak(streak + 1);
-				//maybe change to a const newstreak = '' then set streak to new streak
+				const newStreak = streak + 1;
+				setStreak(newStreak);
 				let wrongLetterCount = wrongLetters.length;
 				let calculatedScore = scoreCalculator(
 					guessNum,
 					wrongLetterCount,
-					streak
+					newStreak
 				);
 				setScore(score + calculatedScore);
 				setGuessNum(1);
 				setTimeout(() => {
-					resetGame();
+					resetBoard();
 				}, 1500);
 
 				console.log(guessNum);
@@ -81,6 +102,13 @@ const WordleBoard = () => {
 				}
 
 				setWrongLetters(newWrongLetters);
+				if (guessNum >= 6) {
+					if (streak !== 0) {
+						setGameStatus('win');
+					} else {
+						setGameStatus('lose');
+					}
+				}
 
 				console.log(`Guess number: ${guessNum}`);
 				console.log(`Used letters: ${wrongLetters}`);
@@ -93,6 +121,18 @@ const WordleBoard = () => {
 
 	return (
 		<Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+			{gameStatus === 'win' ? (
+				<EndGameWinMessage
+					score={score}
+					streak={streak}
+					resetGame={resetGame}
+				/>
+			) : gameStatus === 'lose' ? (
+				<EndGameLoseMessage resetGame={resetGame} />
+			) : (
+				''
+			)}
+			<WelcomeMessage />
 			<Box>
 				<WrongLetterDisplay wrongLetters={wrongLetters} />
 			</Box>
