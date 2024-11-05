@@ -57,12 +57,13 @@ const WordleBoard = () => {
 		setAnswer(newAnswer);
 		setMessage('');
 		console.log(newAnswer);
+		setGameStatus('ongoing');
 	};
 
 	const handleSubmit = () => {
-		if (gameStatus !== 'ongoing') {
-			// return;
-		}
+		// if (gameStatus !== 'ongoing') {
+		// 	return;
+		// }
 		if (currentGuess.length === 5) {
 			const newRow = currentGuess.split('');
 			const updatedRows = [...rows];
