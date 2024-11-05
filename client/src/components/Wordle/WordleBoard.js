@@ -96,9 +96,9 @@ const WordleBoard = () => {
 				for (let i = 0; i < currentGuess.length; i++) {
 					if (
 						!answer.includes(currentGuess[i]) &&
-						!newWrongLetters.includes(currentGuess[i])
+						!newWrongLetters.includes(currentGuess[i].toUpperCase())
 					) {
-						newWrongLetters.push(currentGuess[i]); // Add only letters that aren't in the answer
+						newWrongLetters.push(currentGuess[i].toUpperCase()); // Add only letters that aren't in the answer
 					}
 				}
 

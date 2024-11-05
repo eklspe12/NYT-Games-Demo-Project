@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import Login from './Login';
 
 const Home = () => {
 	return (
 		<div>
+			<Login />
 			<Button as={Link} to="/wordle">
 				Play Wordle
 			</Button>
