@@ -1,23 +1,42 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider, Button, Box, Heading } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import SpellingBee from './SpellingBee/SpellingBee';
 import Home from './Home';
 import Wordle from './Wordle/Wordle';
 import ViewStats from './ViewStats';
+import Login from './Login';
+import LogoutMessage from './Wordle/LogoutMessgae';
 
 function App() {
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [loggingOut, setLoggingOut] = useState(false);
+
 	return (
 		<ChakraProvider>
-			<Router>
-				<Box>
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/wordle" element={<Wordle />} />
-						<Route path="/spelling-bee" element={<SpellingBee />} />
-						<Route path="/stats" element={<ViewStats />} />
-					</Routes>
-				</Box>
-			</Router>
+			{loggingOut ? (
+				<LogoutMessage
+					setLoggingOut={setLoggingOut}
+					setLoggedIn={setLoggedIn}
+				/>
+			) : null}
+			{!loggedIn ? (
+				<Login setLoggedIn={setLoggedIn} />
+			) : (
+				<Router>
+					<Box>
+						<Routes>
+							<Route
+								path="/"
+								element={<Home setLoggingOut={setLoggingOut} />}
+							/>
+							<Route path="/wordle" element={<Wordle />} />
+							<Route path="/spelling-bee" element={<SpellingBee />} />
+							<Route path="/stats" element={<ViewStats />} />
+						</Routes>
+					</Box>
+				</Router>
+			)}
 		</ChakraProvider>
 	);
 }
