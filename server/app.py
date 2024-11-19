@@ -39,6 +39,7 @@ api = Api(app)
 def index(id=0):
     return render_template("index.html")
 
+
 class ClearSession(Resource):
     def delete(self):
         session.clear()

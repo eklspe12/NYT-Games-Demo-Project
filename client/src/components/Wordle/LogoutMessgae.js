@@ -9,7 +9,7 @@ import {
 	ModalHeader,
 } from '@chakra-ui/react';
 
-const LogoutMessage = ({ setLoggingOut, setLoggedIn }) => {
+const LogoutMessage = ({ setLoggingOut, setLoggedIn, user, setUser }) => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	const handleLogoutAndClearSession = async () => {
@@ -19,6 +19,10 @@ const LogoutMessage = ({ setLoggingOut, setLoggedIn }) => {
 			});
 			if (response.ok) {
 				console.log('Logout Successful');
+				setLoggedIn(false);
+				setLoggingOut(false);
+				closeModal();
+				setUser(null);
 			}
 		} catch (err) {
 			console.error('Error logging out:', err);
@@ -29,12 +33,7 @@ const LogoutMessage = ({ setLoggingOut, setLoggedIn }) => {
 		setIsOpen(false);
 		setLoggingOut(false);
 	};
-	const logout = () => {
-		handleLogoutAndClearSession();
-		setLoggedIn(false);
-		setLoggingOut(false);
-		closeModal();
-	};
+
 	return (
 		<Modal isOpen={isOpen} onClose={closeModal}>
 			<ModalOverlay />
@@ -44,7 +43,7 @@ const LogoutMessage = ({ setLoggingOut, setLoggedIn }) => {
 
 				<ModalFooter>
 					<Button onClick={closeModal}>No</Button>
-					<Button onClick={logout}>Yes</Button>
+					<Button onClick={handleLogoutAndClearSession}>Yes</Button>
 				</ModalFooter>
 			</ModalContent>
 		</Modal>

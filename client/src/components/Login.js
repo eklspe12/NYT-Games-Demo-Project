@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Box, Input, Button } from '@chakra-ui/react';
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ setLoggedIn, user, setUser }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [toggleLogin, setToggleLogin] = useState(true);
@@ -32,7 +32,8 @@ const Login = ({ setLoggedIn }) => {
 				body: JSON.stringify({ username, password }),
 			});
 			if (response.ok) {
-				const user = await response.json();
+				const userData = await response.json();
+				setUser(userData);
 				setLoggedIn(true);
 				setMessage('Login successful!');
 			} else if (response.status === 401) {

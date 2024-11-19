@@ -11,6 +11,7 @@ import LogoutMessage from './Wordle/LogoutMessgae';
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [loggingOut, setLoggingOut] = useState(false);
+	const [user, setUser] = useState(null);
 
 	return (
 		<ChakraProvider>
@@ -18,10 +19,12 @@ function App() {
 				<LogoutMessage
 					setLoggingOut={setLoggingOut}
 					setLoggedIn={setLoggedIn}
+					user={user}
+					setUser={setUser}
 				/>
 			) : null}
 			{!loggedIn ? (
-				<Login setLoggedIn={setLoggedIn} />
+				<Login setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
 			) : (
 				<Router>
 					<Box>
@@ -30,7 +33,7 @@ function App() {
 								path="/"
 								element={<Home setLoggingOut={setLoggingOut} />}
 							/>
-							<Route path="/wordle" element={<Wordle />} />
+							<Route path="/wordle" element={<Wordle user={user} />} />
 							<Route path="/spelling-bee" element={<SpellingBee />} />
 							<Route path="/stats" element={<ViewStats />} />
 						</Routes>

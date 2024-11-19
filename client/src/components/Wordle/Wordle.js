@@ -1,11 +1,11 @@
 import React from 'react';
 import ReturnHomeButton from '../ReturnHomeButton';
 import WordleBoard from './WordleBoard';
-const Wordle = () => {
+const Wordle = ({ user }) => {
 	return (
 		<div>
 			<ReturnHomeButton />
-			<WordleBoard />
+			<WordleBoard user={user} />
 		</div>
 	);
 };

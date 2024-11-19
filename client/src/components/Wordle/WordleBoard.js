@@ -16,7 +16,7 @@ import {
 	correctAnswer,
 	randomWord,
 } from './WordList';
-const WordleBoard = () => {
+const WordleBoard = ({ user }) => {
 	const [rows, setRows] = useState(Array(6).fill(Array(5).fill('')));
 	const [currentGuess, setCurrentGuess] = useState('');
 	const [guessNum, setGuessNum] = useState(1);
@@ -32,6 +32,17 @@ const WordleBoard = () => {
 		setAnswer(newAnswer);
 		console.log(newAnswer);
 	}, []);
+
+	// const updateUserScore = async () => {
+	// 	response = await fetch('http://localhost:5001/user', {
+	// 		method: 'PATCH',
+	// 		headers: {
+	// 			'Content-Type':'application/json'
+	// 		},
+	// 		body: JSON.stringify{{score}},
+	// 	});
+	// 	if (response.ok)
+	// };
 
 	const resetBoard = () => {
 		setRows(Array(6).fill(Array(5).fill('')));
@@ -106,6 +117,7 @@ const WordleBoard = () => {
 				if (guessNum >= 6) {
 					if (streak !== 0) {
 						setGameStatus('win');
+						//call function to send patch request for score if score > user.score
 					} else {
 						setGameStatus('lose');
 					}
@@ -157,6 +169,7 @@ const WordleBoard = () => {
 			<Box>
 				<ScoreDisplay score={score} />
 			</Box>
+			<Box>{user.streakle_high_score}</Box>
 		</Box>
 	);
 };
