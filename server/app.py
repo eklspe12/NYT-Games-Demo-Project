@@ -6,7 +6,27 @@ import os
 from models import User
 from config import app, db, api
 
-app = Flask(__name__)
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+DATABASE = os.environ.get(
+    "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
+
+
+
+app = Flask(__name__, 
+            static_url_path='',
+            static_folder='../client/build',
+            template_folder='../client/build')
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+migrate = Migrate(app, db)
+
+
+db.init_app(app)
+
+CORS(app)
+
+api = Api(app)
 
 @app.route('/')
 @app.route('/<int:id>')
@@ -40,7 +60,7 @@ class Login(Resource):
     def post(self):
         username = request.get_json()['username']
         password = request.get_json()['password']
-        user = User.query.filter(User.username == username).first
+        user = User.query.filter(User.username == username).first()
 
         if not username or not password:
             return {'error':'400 Bad request'}, 400
