@@ -55,7 +55,7 @@ class Signup(Resource):
             existing_user = db.session.query(User).filter_by(username=username).first()
 
             if existing_user:
-                return {'message': 'Username already taken.'}
+                return {'message': 'Username already taken.'}, 422
             new_user = User(username=username)
             new_user.password_hash = password
             db.session.add(new_user)
@@ -63,7 +63,6 @@ class Signup(Resource):
             session['user_id'] = new_user.id
 
             return new_user.to_dict(), 201
-        return {'error':'422, Unprocessable Entity'}, 422
     
 api.add_resource(Signup, '/signup')
 

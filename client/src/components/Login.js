@@ -9,17 +9,11 @@ const Login = ({ setLoggedIn }) => {
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [message, setMessage] = useState(null);
-	const [error, setError] = useState(null);
-	// const handleLogin = () => {
-	// 	console.log(username, password);
-	// 	if (username !== '' && password !== '') {
-	// 		setLoggedIn(true);
-	// 	}
-	// };
 
 	const handleLogin = async () => {
 		if (!username || !password) {
-			setError('Please fill out username and password fields.');
+			setMessage('Please fill out username and password fields.');
+			return;
 		}
 		try {
 			const response = await fetch('http://localhost:5001/login', {
@@ -33,32 +27,30 @@ const Login = ({ setLoggedIn }) => {
 				const user = await response.json();
 				setLoggedIn(true);
 				setMessage('Login successful!');
-				setError(null);
 			} else if (response.status === 401) {
-				setError('Invalid login information.');
+				setMessage('Invalid login information.');
 			} else if (response.status === 404) {
-				setError('Username not found');
+				setMessage('Username not found');
 			} else {
-				setError('An error occurred. Please try again.');
+				setMessage('An error occurred. Please try again.');
 			}
 		} catch (err) {
-			setError('Network error. Please try again later.');
+			setMessage('Network error. Please try again later.');
 		}
 	};
 
 	const handleToggle = () => {
 		setToggleLogin(!toggleLogin);
 		setMessage(null);
-		setError(null);
 	};
 
 	const handleAccountCreation = async () => {
 		if (!newUsername || !newPassword || !confirmPassword) {
-			setError('Please fill out all fields.');
+			setMessage('Please fill out all fields.');
 			return;
 		}
 		if (newPassword !== confirmPassword) {
-			setError('Passwords must match.');
+			setMessage('Passwords must match.');
 			return;
 		}
 		try {
@@ -74,32 +66,20 @@ const Login = ({ setLoggedIn }) => {
 			});
 			if (response.ok) {
 				setMessage('Account created successfully!');
-				setError(null);
 				setNewPassword('');
 				setNewUsername('');
 				setConfirmPassword('');
 				setToggleLogin(true);
 			} else if (response.status === 422) {
-				setError('Username is already taken.');
+				setMessage('Username is already taken.');
 			} else {
-				setError('An error occurred. Please try again.');
+				setMessage('An error occurred. Please try again.');
 			}
 		} catch (err) {
-			setError('Network error. Please try again later');
+			setMessage('Network error. Please try again later');
 		}
 	};
 
-	// const handleAccountCreation = () => {
-	// 	console.log(newUsername, newPassword, confirmPassword);
-	// 	if (
-	// 		newUsername !== '' &&
-	// 		newPassword !== '' &&
-	// 		newPassword === confirmPassword
-	// 	) {
-	// 		setMessage('Account created succesfully');
-	// 	} else {
-	// 	}
-	// };
 	return (
 		<Box>
 			{toggleLogin ? (
@@ -116,6 +96,7 @@ const Login = ({ setLoggedIn }) => {
 					/>
 					<Button onClick={handleLogin}>Login</Button>
 					<Button onClick={handleToggle}>Create An Account</Button>
+					{message !== null ? <Text>{message}</Text> : null}
 				</Box>
 			) : (
 				<Box width={300}>
