@@ -12,11 +12,25 @@ import {
 const LogoutMessage = ({ setLoggingOut, setLoggedIn }) => {
 	const [isOpen, setIsOpen] = useState(true);
 
+	const handleLogoutAndClearSession = async () => {
+		try {
+			const response = await fetch('http://localhost:5001/clear_session', {
+				method: 'DELETE',
+			});
+			if (response.ok) {
+				console.log('Logout Successful');
+			}
+		} catch (err) {
+			console.error('Error logging out:', err);
+		}
+	};
+
 	const closeModal = () => {
 		setIsOpen(false);
 		setLoggingOut(false);
 	};
 	const logout = () => {
+		handleLogoutAndClearSession();
 		setLoggedIn(false);
 		setLoggingOut(false);
 		closeModal();

@@ -10,6 +10,14 @@ const Login = ({ setLoggedIn }) => {
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [message, setMessage] = useState(null);
 
+	const resetFields = () => {
+		setConfirmPassword('');
+		setPassword('');
+		setNewPassword('');
+		setUsername('');
+		setNewUsername('');
+	};
+
 	const handleLogin = async () => {
 		if (!username || !password) {
 			setMessage('Please fill out username and password fields.');
@@ -41,6 +49,7 @@ const Login = ({ setLoggedIn }) => {
 
 	const handleToggle = () => {
 		setToggleLogin(!toggleLogin);
+		resetFields();
 		setMessage(null);
 	};
 
@@ -66,9 +75,7 @@ const Login = ({ setLoggedIn }) => {
 			});
 			if (response.ok) {
 				setMessage('Account created successfully!');
-				setNewPassword('');
-				setNewUsername('');
-				setConfirmPassword('');
+				resetFields();
 				setToggleLogin(true);
 			} else if (response.status === 422) {
 				setMessage('Username is already taken.');
@@ -88,10 +95,12 @@ const Login = ({ setLoggedIn }) => {
 					<Input
 						placeholder={'Username'}
 						onChange={(e) => setUsername(e.target.value)}
+						value={username}
 					/>
 					<Input
 						placeholder={'Password'}
 						type="password"
+						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<Button onClick={handleLogin}>Login</Button>
@@ -103,17 +112,20 @@ const Login = ({ setLoggedIn }) => {
 					<Text>Create An Account</Text>
 					<Input
 						placeholder={'Create Username'}
+						value={newUsername}
 						onChange={(e) => setNewUsername(e.target.value)}
 					/>
 					<Input
 						placeholder={'Create Password'}
 						onChange={(e) => setNewPassword(e.target.value)}
 						type="password"
+						value={newPassword}
 					/>
 					<Input
 						placeholder={'Confirm Password'}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						type="password"
+						value={confirmPassword}
 					/>
 					<Button onClick={handleAccountCreation}>Create Account</Button>
 					<Button onClick={handleToggle}>Go Back</Button>

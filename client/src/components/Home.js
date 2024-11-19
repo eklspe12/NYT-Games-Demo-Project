@@ -3,9 +3,11 @@ import { Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Home = ({ setLoggingOut }) => {
-	const handleLogout = () => {
+	const handleLogout = async () => {
 		setLoggingOut(true);
 	};
+	// this is a weird format that may need to be fixed, logout message component might need to move
+
 	return (
 		<div>
 			<Button as={Link} to="/wordle">

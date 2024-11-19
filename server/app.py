@@ -41,7 +41,7 @@ def index(id=0):
 
 class ClearSession(Resource):
     def delete(self):
-        session['user_id'] = None
+        session.clear()
         return {}, 204
 api.add_resource(ClearSession, '/clear_session')
 
@@ -79,12 +79,13 @@ class Login(Resource):
             return {'error': '404 user not found'}, 404
 
         if user.authenticate(password):
-            session['user_id'] = user.id
+            session['username'] = username
             return user.to_dict(), 200
         
         return {'error':'401 Unauthorized'}, 401
     
 api.add_resource(Login, '/login')
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=(True))
