@@ -6,6 +6,8 @@ import os
 from models import User
 from config import app, db, api
 
+random_key = os.urandom(24)
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
@@ -18,13 +20,17 @@ app = Flask(__name__,
             template_folder='../client/build')
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = random_key
+app.jsonify_compatibility = False
+
+CORS(app)
+
 
 migrate = Migrate(app, db)
 
 
 db.init_app(app)
 
-CORS(app)
 
 api = Api(app)
 
@@ -45,6 +51,11 @@ class Signup(Resource):
         password = request.get_json()['newPassword']
 
         if username and password:
+
+            existing_user = db.session.query(User).filter_by(username=username).first()
+
+            if existing_user:
+                return {'message': 'Username already taken.'}
             new_user = User(username=username)
             new_user.password_hash = password
             db.session.add(new_user)

@@ -22,7 +22,7 @@ const Login = ({ setLoggedIn }) => {
 			setError('Please fill out username and password fields.');
 		}
 		try {
-			const response = await fetch('/login', {
+			const response = await fetch('http://localhost:5001/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const Login = ({ setLoggedIn }) => {
 			return;
 		}
 		try {
-			const response = await fetch('/signup', {
+			const response = await fetch('http://localhost:5001/signup', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -111,6 +111,7 @@ const Login = ({ setLoggedIn }) => {
 					/>
 					<Input
 						placeholder={'Password'}
+						type="password"
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<Button onClick={handleLogin}>Login</Button>
