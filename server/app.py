@@ -87,6 +87,44 @@ class Login(Resource):
     
 api.add_resource(Login, '/login')
 
+class UserResource(Resource):
+    def patch(self, user_id):
+        user = User.query.get(user_id)
+        if not user:
+            return {'error':'User not found'}, 404
+        
+        data = request.get_json()
+        high_score = data.get('score')
+        high_streak = data.get('streak')
+
+        if high_score is None and high_streak is None:
+            return {'error': '400 Bad Request - Missing Score or Streak'}, 400
+        
+        high_score_updated = False
+        if high_score is not None and high_score > user.streakle_high_score:
+            user.streakle_high_score = high_score
+            high_score_updated = True
+
+        high_streak_updated = False
+        if high_streak is not None and high_streak > user.streakle_high_streak:
+            user.streakle_high_streak = high_streak
+            high_streak_updated = True
+
+        if high_score_updated or high_streak_updated:
+            db.session.commit()
+        
+        response_message = {}
+
+        if high_streak_updated:
+            response_message['high_streak'] = 'High streak updated!'
+        if high_score_updated:
+            response_message['high_score'] = 'High score updated!'
+        if not response_message:
+            response_message['message'] = 'No updated made.'
+        
+        return response_message, 200
+
+api.add_resource(UserResource, '/user/<int:user_id>')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=(True))

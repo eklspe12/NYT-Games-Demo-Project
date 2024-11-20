@@ -27,22 +27,44 @@ const WordleBoard = ({ user }) => {
 	const [streak, setStreak] = useState(0);
 	const [score, setScore] = useState(0);
 	const [gameStatus, setGameStatus] = useState('ongoing');
+	const [highScore, setHighScore] = useState(user.streakle_high_score);
+	const [highStreak, setHighStreak] = useState(user.streakle_high_streak);
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
 		console.log(newAnswer);
 	}, []);
 
-	// const updateUserScore = async () => {
-	// 	response = await fetch('http://localhost:5001/user', {
-	// 		method: 'PATCH',
-	// 		headers: {
-	// 			'Content-Type':'application/json'
-	// 		},
-	// 		body: JSON.stringify{{score}},
-	// 	});
-	// 	if (response.ok)
-	// };
+	const updateUserScoreAndStreak = () => {
+		fetch(`http://localhost:5001/user/${user.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ score: score, streak: streak }),
+		})
+			.then((r) => {
+				if (!r.ok) {
+					return r.json().then((data) => {
+						throw new Error(data.error || 'Failed to update high score.');
+					});
+				}
+				return r.json();
+			})
+			.then((data) => {
+				console.log('Score updated successfully:', data);
+			})
+			.catch((error) => {
+				console.error('Error updating score:', error.message);
+				setMessage('Failed to update score. Please try again.');
+			});
+		if (score > user.streakle_high_score) {
+			setHighScore(score);
+		}
+		if (streak > user.streakle_high_streak) {
+			setHighStreak(streak);
+		}
+	};
 
 	const resetBoard = () => {
 		setRows(Array(6).fill(Array(5).fill('')));
@@ -117,6 +139,7 @@ const WordleBoard = ({ user }) => {
 				if (guessNum >= 6) {
 					if (streak !== 0) {
 						setGameStatus('win');
+						updateUserScoreAndStreak();
 						//call function to send patch request for score if score > user.score
 					} else {
 						setGameStatus('lose');
@@ -169,24 +192,10 @@ const WordleBoard = ({ user }) => {
 			<Box>
 				<ScoreDisplay score={score} />
 			</Box>
-			<Box>{user.streakle_high_score}</Box>
+			<Box>{highScore}</Box>
+			<Box>{highStreak}</Box>
 		</Box>
 	);
 };
 
 export default WordleBoard;
-
-// top unused row should be input field that only accepts letters with each letter getting a tile (no more than 5 letters)
-//      on submit should verify exactly 5 letters long
-//      (ignore - will add later) on submit should verify word is real
-//      if real word, must check each tiles letter
-//          Maybe by iterating through each input tile vs the index of each char of the string which is the answer word
-//      each letter in the correct place will change that tiles class to correct
-//      each letter that is in the word but in the wrong place will change it's tile to class misplaced
-//      each letter not in the word will change it's tile to class wrong
-//      if all tiles classes are correct display winning message
-//      otherwise next row becomes new input row
-
-//for unused letters
-//when answer is checked, if a letter is not in word and not in the unused letters array
-//		set unused letter array state to be the current array plus the new letter
