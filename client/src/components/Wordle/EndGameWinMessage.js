@@ -9,7 +9,13 @@ import {
 	ModalHeader,
 } from '@chakra-ui/react';
 
-const EndGameWinMessage = ({ score, streak, resetGame }) => {
+const EndGameWinMessage = ({
+	score,
+	streak,
+	resetGame,
+	newHighScore,
+	newHighStreak,
+}) => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	const closeModal = () => {
@@ -19,7 +25,16 @@ const EndGameWinMessage = ({ score, streak, resetGame }) => {
 		<Modal isOpen={isOpen} onClose={closeModal}>
 			<ModalOverlay />
 			<ModalContent>
-				<ModalHeader>Congrats!</ModalHeader>
+				{newHighScore && newHighStreak ? (
+					<ModalHeader>New High Score and Streak!</ModalHeader>
+				) : newHighScore && !newHighStreak ? (
+					<ModalHeader>New High Score!</ModalHeader>
+				) : newHighStreak && !newHighScore ? (
+					<ModalHeader>New High Streak!</ModalHeader>
+				) : (
+					<ModalHeader>Congrats!</ModalHeader>
+				)}
+
 				<ModalBody>
 					You scored {score} points and guessed {streak} words correct!
 				</ModalBody>

@@ -29,6 +29,9 @@ const WordleBoard = ({ user }) => {
 	const [gameStatus, setGameStatus] = useState('ongoing');
 	const [highScore, setHighScore] = useState(user.streakle_high_score);
 	const [highStreak, setHighStreak] = useState(user.streakle_high_streak);
+	const [newHighScore, setNewHighScore] = useState(false);
+	const [newHighStreak, setNewHighStreak] = useState(false);
+
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
@@ -60,9 +63,11 @@ const WordleBoard = ({ user }) => {
 			});
 		if (score > user.streakle_high_score) {
 			setHighScore(score);
+			setNewHighScore(true);
 		}
 		if (streak > user.streakle_high_streak) {
 			setHighStreak(streak);
+			setNewHighStreak(true);
 		}
 	};
 
@@ -77,6 +82,7 @@ const WordleBoard = ({ user }) => {
 		setMessage(streak > 0 ? `Streak Bonus +${streak * 500}!` : 'New Word!');
 		console.log(newAnswer);
 		setGameStatus('ongoing');
+		console.log('resetBoard');
 	};
 	const resetGame = () => {
 		setRows(Array(6).fill(Array(5).fill('')));
@@ -91,12 +97,13 @@ const WordleBoard = ({ user }) => {
 		setMessage('');
 		console.log(newAnswer);
 		setGameStatus('ongoing');
+		setNewHighScore(false);
+		setNewHighStreak(false);
+		console.log('reset game');
 	};
 
 	const handleSubmit = () => {
-		// if (gameStatus !== 'ongoing') {
-		// 	return;
-		// }
+		console.log('handle submit');
 		if (currentGuess.length === 5) {
 			const newRow = currentGuess.split('');
 			const updatedRows = [...rows];
@@ -124,25 +131,26 @@ const WordleBoard = ({ user }) => {
 			} else {
 				setMessage('');
 				setGuessNum(guessNum + 1);
-				let newWrongLetters = [...wrongLetters]; // Create a copy of the current wrongLetters array
+				let newWrongLetters = [...wrongLetters];
 
 				for (let i = 0; i < currentGuess.length; i++) {
 					if (
 						!answer.includes(currentGuess[i]) &&
 						!newWrongLetters.includes(currentGuess[i].toUpperCase())
 					) {
-						newWrongLetters.push(currentGuess[i].toUpperCase()); // Add only letters that aren't in the answer
+						newWrongLetters.push(currentGuess[i].toUpperCase());
 					}
 				}
 
 				setWrongLetters(newWrongLetters);
 				if (guessNum >= 6) {
 					if (streak !== 0) {
-						setGameStatus('win');
 						updateUserScoreAndStreak();
-						//call function to send patch request for score if score > user.score
+						setGameStatus('win');
+						console.log('Game status should be win');
 					} else {
 						setGameStatus('lose');
+						console.log('game status should be lose');
 					}
 				}
 
@@ -162,12 +170,15 @@ const WordleBoard = ({ user }) => {
 					score={score}
 					streak={streak}
 					resetGame={resetGame}
+					newHighScore={newHighScore}
+					newHighStreak={newHighStreak}
 				/>
 			) : gameStatus === 'lose' ? (
 				<EndGameLoseMessage resetGame={resetGame} />
 			) : (
 				''
 			)}
+
 			<WelcomeMessage />
 			<Box>
 				<WrongLetterDisplay wrongLetters={wrongLetters} />
