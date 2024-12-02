@@ -8,14 +8,23 @@ const Submit = ({ handleSubmit, currentGuess, setCurrentGuess }) => {
 			handleSubmit(); // Call handleSubmit directly
 		}
 	};
+	const handleChange = (event) => {
+		let input = event.target.value.toLowerCase();
+		if (/^[a-zA-Z]*$/.test(input) && input.length <= 5) {
+			setCurrentGuess(input);
+		}
+	};
 	return (
 		<Box>
 			<Input
 				value={currentGuess}
 				onChange={(e) => {
-					const value = e.target.value.toLowerCase();
-					if (value.length <= 5) setCurrentGuess(value);
+					handleChange(e);
 				}}
+				// onChange={(e) => {
+				// 	const value = e.target.value.toLowerCase();
+				// 	if (value.length <= 5) setCurrentGuess(value);
+				// }}
 				onKeyDown={handleKeyDown}
 				maxLength={5}
 				placeholder="Enter your guess"

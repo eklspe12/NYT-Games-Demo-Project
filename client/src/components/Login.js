@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Box, Input, Button } from '@chakra-ui/react';
+import { Filter } from 'bad-words';
 
 const Login = ({ setLoggedIn, user, setUser }) => {
 	const [username, setUsername] = useState('');
@@ -9,6 +10,8 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [message, setMessage] = useState(null);
+
+	const filter = new Filter();
 
 	const resetFields = () => {
 		setConfirmPassword('');
@@ -54,11 +57,36 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 		setMessage(null);
 	};
 
-	const handleAccountCreation = async () => {
+	const validateUsername = (input) => {
+		if (!/^[a-zA-Z0-9_]{3, 15}$/.test(input)) {
+			return 'Username must be between 3-15 characters and contain only letters and numbers.';
+		}
+		if (filter.isProfane(input)) {
+			return 'Inappropriate word detected. Please chose a different username.';
+		}
+		return null;
+	};
+	const handleAccountCreation = async (e) => {
+		e.preventDefault();
+		console.log(newUsername);
 		if (!newUsername || !newPassword || !confirmPassword) {
 			setMessage('Please fill out all fields.');
 			return;
 		}
+		if (!/^[a-zA-Z0-9_]{3,15}$/.test(newUsername)) {
+			setMessage(
+				'Username must be between 3-15 characters and contain only letters and numbers.'
+			);
+			return;
+		}
+
+		if (filter.isProfane(newUsername)) {
+			setMessage(
+				'Inappropriate word detected. Please chose a different username.'
+			);
+			return;
+		}
+
 		if (newPassword !== confirmPassword) {
 			setMessage('Passwords must match.');
 			return;
