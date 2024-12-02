@@ -58,7 +58,7 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 	};
 
 	const validateUsername = (input) => {
-		if (!/^[a-zA-Z0-9_]{3, 15}$/.test(input)) {
+		if (!/^[a-zA-Z0-9_]{3,15}$/.test(input)) {
 			return 'Username must be between 3-15 characters and contain only letters and numbers.';
 		}
 		if (filter.isProfane(input)) {
@@ -66,24 +66,39 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 		}
 		return null;
 	};
+
+	const validatePassword = (input) => {
+		if (input.length < 8 || input.length > 19) {
+			return 'Password must be between 8-20 characters long.';
+		}
+		if (!/[A-Z]/.test(input)) {
+			return 'Password must contain at least one uppercase letter.';
+		}
+		if (!/[a-z]/.test(input)) {
+			return 'Password must contain at least one lowercase letter.';
+		}
+		if (!/[0-9]/.test(input)) {
+			return 'Password must contain at least one number.';
+		}
+		if (!/[!@#$%^&*(),.?":{}|<>]/.test(input)) {
+			return 'Password must contain at least one special character.';
+		}
+		return null;
+	};
 	const handleAccountCreation = async (e) => {
 		e.preventDefault();
-		console.log(newUsername);
+		const validationError = validateUsername(newUsername);
+		if (validationError) {
+			setMessage(validationError);
+			return;
+		}
+		const passwordValidationError = validatePassword(newPassword);
+		if (passwordValidationError) {
+			setMessage(passwordValidationError);
+			return;
+		}
 		if (!newUsername || !newPassword || !confirmPassword) {
 			setMessage('Please fill out all fields.');
-			return;
-		}
-		if (!/^[a-zA-Z0-9_]{3,15}$/.test(newUsername)) {
-			setMessage(
-				'Username must be between 3-15 characters and contain only letters and numbers.'
-			);
-			return;
-		}
-
-		if (filter.isProfane(newUsername)) {
-			setMessage(
-				'Inappropriate word detected. Please chose a different username.'
-			);
 			return;
 		}
 
