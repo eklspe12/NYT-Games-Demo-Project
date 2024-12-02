@@ -29,13 +29,16 @@ function App() {
 				<Router>
 					<Box>
 						<Routes>
-							<Route
+							{/* <Route
 								path="/"
 								element={<Home setLoggingOut={setLoggingOut} />}
+							/> */}
+							<Route
+								path="/wordle"
+								element={<Wordle user={user} setLoggingOut={setLoggingOut} />}
 							/>
-							<Route path="/wordle" element={<Wordle user={user} />} />
-							<Route path="/spelling-bee" element={<SpellingBee />} />
-							<Route path="/stats" element={<ViewStats />} />
+							{/* <Route path="/spelling-bee" element={<SpellingBee />} />
+							<Route path="/stats" element={<ViewStats />} /> */}
 						</Routes>
 					</Box>
 				</Router>
