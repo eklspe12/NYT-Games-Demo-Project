@@ -2,9 +2,9 @@ import React from 'react';
 
 const ScoreDisplay = ({ score }) => {
 	return (
-		<div>
-			<h1>Your Score</h1>
-			<h1>{score}</h1>
+		<div className="score-container">
+			<h1 className="score-title">Current Score</h1>
+			<h1 className="score-number">{score}</h1>
 		</div>
 	);
 };

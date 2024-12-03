@@ -10,6 +10,8 @@ import WelcomeMessage from './WelcomeMessage';
 import EndGameLoseMessage from './EndGameLoseMessage';
 import EndGameWinMessage from './EndGameWinMessage';
 import WordleKeyboard from './WordleKeyboard';
+import HighScoreDisplay from './HighScoreDisplay';
+import HighStreakDisplay from './HighStreakDisplay';
 import {
 	wordArray,
 	usedWords,
@@ -17,6 +19,7 @@ import {
 	correctAnswer,
 	randomWord,
 } from './WordList';
+import StreakDisplay from './StreakDisplay';
 const WordleBoard = ({ user }) => {
 	const [rows, setRows] = useState(Array(6).fill(Array(5).fill('')));
 	const [currentGuess, setCurrentGuess] = useState('');
@@ -252,41 +255,50 @@ const WordleBoard = ({ user }) => {
 			)}
 
 			<WelcomeMessage />
-			<Box>{/* <WrongLetterDisplay wrongLetters={wrongLetters} /> */}</Box>
-			<Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-				{rows.map((letters, index) => (
-					<Box key={index}>
-						{index === currentRow ? (
-							<InputRow currentGuess={currentGuess} />
-						) : (
-							<WordleRow
-								letters={letters}
-								answer={answer}
-								answerCount={answerCount}
-								correctGuessCount={correctGuessCount}
-								presentGuessCount={presentGuessCount}
-								resetTiles={resetTiles}
-							/>
-						)}
+			<Box display={'flex'} flexDirection={'row'}>
+				<Box>
+					<ScoreDisplay score={score} />
+					<StreakDisplay streak={streak} />
+				</Box>
+				<Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+					{rows.map((letters, index) => (
+						<Box key={index}>
+							{index === currentRow ? (
+								<InputRow currentGuess={currentGuess} />
+							) : (
+								<WordleRow
+									letters={letters}
+									answer={answer}
+									answerCount={answerCount}
+									correctGuessCount={correctGuessCount}
+									presentGuessCount={presentGuessCount}
+									resetTiles={resetTiles}
+								/>
+							)}
+						</Box>
+					))}
+					<Box className="message">
+						{message && <Text mt={4}>{message}</Text>}
 					</Box>
-				))}
-				{message && <Text mt={4}>{message}</Text>}
-				<Submit
-					handleSubmit={handleSubmit}
-					currentGuess={currentGuess}
-					setCurrentGuess={setCurrentGuess}
-				/>
-				<WordleKeyboard
-					wrongLetters={wrongLetters}
-					correctGuessCount={correctGuessCount}
-					presentGuessCount={presentGuessCount}
-				/>
+
+					<Submit
+						handleSubmit={handleSubmit}
+						currentGuess={currentGuess}
+						setCurrentGuess={setCurrentGuess}
+					/>
+					<Box>
+						<WrongLetterDisplay wrongLetters={wrongLetters} />
+					</Box>
+				</Box>
+				<Box>
+					<Box>
+						<HighScoreDisplay highScore={highScore} />
+					</Box>
+					<Box>
+						<HighStreakDisplay highStreak={highStreak} />
+					</Box>
+				</Box>
 			</Box>
-			<Box>
-				<ScoreDisplay score={score} />
-			</Box>
-			<Box>{highScore}</Box>
-			<Box>{highStreak}</Box>
 		</Box>
 	);
 };

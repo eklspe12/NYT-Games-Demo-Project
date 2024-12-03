@@ -39,10 +39,10 @@ const WordleKeyboard = ({
 	return (
 		<Box className={'keyboard-container'}>
 			<Keyboard
-				className={'keyboard'}
+				theme={'my-custom-keyboard'}
 				buttonTheme={[
 					{
-						className: 'all-buttons',
+						class: 'correct-button',
 						buttons:
 							'Q W E R T Y U I O P A S D F G H J K L Z X C V B N M q w e r t y u i o p a s d f g h j k l z x c v b n m',
 					},
@@ -55,7 +55,7 @@ const WordleKeyboard = ({
 					],
 				}}
 				onKeyPress={onKeyPress}
-				buttonClass={(button) => buttonState[button]}
+				buttonClass={(button) => buttonState[button] || 'hg-default-button'}
 			/>
 		</Box>
 	);

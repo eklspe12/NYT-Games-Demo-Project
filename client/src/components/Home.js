@@ -6,7 +6,6 @@ const Home = ({ setLoggingOut }) => {
 	const handleLogout = async () => {
 		setLoggingOut(true);
 	};
-	// this is a weird format that may need to be fixed, logout message component might need to move
 
 	return (
 		<div>

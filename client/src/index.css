@@ -94,29 +94,104 @@ code {
 .flip-content > div {
 	backface-visibility: hidden;
 }
-
 .keyboard-container {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
 	width: 100%;
-	height: 100px;
 }
 
 .keyboard {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(10, 1fr); /* 10 buttons per row */
+	gap: 8px; /* Space between buttons */
+	width: 100%; /* Ensure the keyboard takes up full width */
 }
 
-.wrong-button {
-	background-color: gray !important;
-	color: white !important;
+.keyboard-row {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr); /* 10 buttons per row */
+	gap: 8px;
 }
 
-.present-button {
-	background-color: yellow !important;
-	color: black !important;
+button {
+	padding: 10px;
+	font-size: 18px;
+	text-transform: uppercase;
+	border-radius: 5px;
+	border: none;
+	background-color: #f0f0f0;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
-.correct-button {
-	background-color: green !important;
-	color: black !important;
+button.correct-button {
+	background-color: green;
+	color: white;
+}
+
+button.present-button {
+	background-color: yellow;
+	color: black;
+}
+
+button.wrong-button {
+	background-color: gray;
+	color: white;
+}
+
+button:active {
+	background-color: #ddd; /* A slight shade change when button is pressed */
+}
+
+button:focus {
+	outline: none;
+}
+
+.wrong-letter-container {
+	margin: 10px;
+	text-align: center;
+	width: 230px;
+}
+
+.wrong-letter-title {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+.wrong-letters {
+	font-size: large;
+	color: lightcoral;
+}
+
+.high-score-title,
+.high-streak-title,
+.score-title,
+.streak-title {
+	color: green;
+	font-weight: bold;
+	font-size: large;
+}
+
+.high-score-number,
+.high-streak-number,
+.score-number,
+.streak-number {
+	font-size: xx-large;
+}
+
+.high-score-container,
+.high-streak-container,
+.score-container,
+.streak-container {
+	text-align: center;
+	margin-bottom: 10px;
+	padding: 10px;
+	padding-top: 3px;
+	width: 230px;
+}
+
+.message {
+	margin-bottom: 10px;
+	font-size: x-large;
 }
