@@ -9,6 +9,7 @@ import WrongLetterDisplay from './WrongLetterDisplay';
 import WelcomeMessage from './WelcomeMessage';
 import EndGameLoseMessage from './EndGameLoseMessage';
 import EndGameWinMessage from './EndGameWinMessage';
+import WordleKeyboard from './WordleKeyboard';
 import {
 	wordArray,
 	usedWords,
@@ -251,9 +252,7 @@ const WordleBoard = ({ user }) => {
 			)}
 
 			<WelcomeMessage />
-			<Box>
-				<WrongLetterDisplay wrongLetters={wrongLetters} />
-			</Box>
+			<Box>{/* <WrongLetterDisplay wrongLetters={wrongLetters} /> */}</Box>
 			<Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
 				{rows.map((letters, index) => (
 					<Box key={index}>
@@ -276,6 +275,11 @@ const WordleBoard = ({ user }) => {
 					handleSubmit={handleSubmit}
 					currentGuess={currentGuess}
 					setCurrentGuess={setCurrentGuess}
+				/>
+				<WordleKeyboard
+					wrongLetters={wrongLetters}
+					correctGuessCount={correctGuessCount}
+					presentGuessCount={presentGuessCount}
 				/>
 			</Box>
 			<Box>

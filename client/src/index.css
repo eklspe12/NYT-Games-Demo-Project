@@ -94,3 +94,29 @@ code {
 .flip-content > div {
 	backface-visibility: hidden;
 }
+
+.keyboard-container {
+	width: 100%;
+	height: 100px;
+}
+
+.keyboard {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.wrong-button {
+	background-color: gray !important;
+	color: white !important;
+}
+
+.present-button {
+	background-color: yellow !important;
+	color: black !important;
+}
+
+.correct-button {
+	background-color: green !important;
+	color: black !important;
+}
