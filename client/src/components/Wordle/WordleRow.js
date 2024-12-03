@@ -8,6 +8,8 @@ const WordleRow = ({
 	answer,
 	answerCount,
 	correctGuessCount,
+	presentGuessCount,
+	resetTiles,
 }) => {
 	return (
 		<Box display={'flex'}>
@@ -20,6 +22,8 @@ const WordleRow = ({
 					index={index}
 					answerCount={answerCount}
 					correctGuessCount={correctGuessCount}
+					presentGuessCount={presentGuessCount}
+					resetTiles={resetTiles}
 				/>
 				//likely need to pass answercount and guess count arrays into function
 			))}

@@ -52,3 +52,9 @@ if (letter && index < answer.length) {
 //          < = yellow
 //          = black
 //      return class
+
+// Have correctPlaceGuessCount and answerCount
+//      correctPlaceGuessCount shouldn't be able to exceed answerCount
+//      need variable to count letters that are in the word but the incorrect spot
+//          for example an answer of 'hello' with a guess of 'beeps' should return an answer count of 1 for e, a correctPlaceGuessCount of 1 for e, and variable of present letters of 2 for e
+//      need someway to compare those variables when passing to wordleTiles so if answerCount for a letter and correctPlaceGuessCount are the same, it doesn't matter if the guess had more instances of that letter, and the tiles of that letter not in the correct place will be given a permanent class of wrong rather than present

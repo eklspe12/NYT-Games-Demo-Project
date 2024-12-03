@@ -33,11 +33,12 @@ const WordleBoard = ({ user }) => {
 	const [newHighStreak, setNewHighStreak] = useState(false);
 	const [answerCount, setAnswerCount] = useState({});
 	const [correctGuessCount, setCorrectGuessCount] = useState({});
+	const [presentGuessCount, setPresentGuessCount] = useState({});
+	const [resetTiles, setResetTiles] = useState(false);
 
 	const countAnswerLetters = (answer) => {
 		const tempAnswerCount = {};
-		const sortedAnswer = answer.split('').sort().join('');
-		for (const letter of sortedAnswer) {
+		for (const letter of answer) {
 			if (tempAnswerCount[letter]) {
 				tempAnswerCount[letter]++;
 			} else {
@@ -47,36 +48,39 @@ const WordleBoard = ({ user }) => {
 		setAnswerCount(tempAnswerCount);
 	};
 
+	const countPresentLetters = (guess) => {
+		const tempPresentCount = {};
+		for (const letter of guess) {
+			if (answer.includes(letter)) {
+				const totalGuessCount =
+					(correctGuessCount[letter] || 0) + (tempPresentCount[letter] || 0);
+				if (totalGuessCount < answerCount[letter]) {
+					tempPresentCount[letter] = (tempPresentCount[letter] || 0) + 1;
+				}
+			}
+		}
+		setPresentGuessCount(tempPresentCount);
+	};
+
 	//code below checks how many of each letter are in the correct place
 	// need to track correct placement and correct letters of wrong placement
 	//		correct instances can't exceed answer?
 	const correctGuessLetters = (guess) => {
-		const tempGuessCount = {};
+		const tempGuessCountCorrectPlace = {};
 
 		for (let i = 0; i < guess.length; i++) {
 			const letter = guess[i];
 			if (letter === answer[i]) {
-				if (tempGuessCount[letter]) {
-					tempGuessCount[letter]++;
+				if (tempGuessCountCorrectPlace[letter]) {
+					tempGuessCountCorrectPlace[letter]++;
 				} else {
-					tempGuessCount[letter] = 1;
+					tempGuessCountCorrectPlace[letter] = 1;
 				}
 			}
 		}
 
-		setCorrectGuessCount(tempGuessCount);
+		setCorrectGuessCount(tempGuessCountCorrectPlace);
 	};
-
-	// const sortedGuess = guess.split('').sort().join('');
-	// for (const letter of sortedGuess) {
-	// 	if (answer.includes(letter)) {
-	// 		if (tempGuessCount[letter]) {
-	// 			tempGuessCount[letter]++;
-	// 		} else {
-	// 			tempGuessCount[letter] = 1;
-	// 		}
-	// 	}
-	// }
 
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
@@ -92,6 +96,10 @@ const WordleBoard = ({ user }) => {
 	useEffect(() => {
 		console.log('Updated answerCount:', answerCount);
 	}, [answer]);
+
+	useEffect(() => {
+		console.log('Present letters:', presentGuessCount);
+	}, [presentGuessCount]);
 
 	const updateUserScoreAndStreak = () => {
 		fetch(`http://localhost:5001/user/${user.id}`, {
@@ -139,6 +147,8 @@ const WordleBoard = ({ user }) => {
 		setGameStatus('ongoing');
 		console.log('resetBoard');
 		countAnswerLetters(newAnswer);
+		setResetTiles(true);
+		setTimeout(() => setResetTiles(false), 0);
 	};
 	const resetGame = () => {
 		setRows(Array(6).fill(Array(5).fill('')));
@@ -157,12 +167,15 @@ const WordleBoard = ({ user }) => {
 		setNewHighStreak(false);
 		console.log('reset game');
 		countAnswerLetters(newAnswer);
+		setResetTiles(true);
+		setTimeout(() => setResetTiles(false), 0);
 	};
 
 	const handleSubmit = () => {
 		console.log('handle submit');
 		if (currentGuess.length === 5) {
 			correctGuessLetters(currentGuess);
+			countPresentLetters(currentGuess);
 			const newRow = currentGuess.split('');
 			const updatedRows = [...rows];
 			updatedRows[currentRow] = newRow;
@@ -252,6 +265,8 @@ const WordleBoard = ({ user }) => {
 								answer={answer}
 								answerCount={answerCount}
 								correctGuessCount={correctGuessCount}
+								presentGuessCount={presentGuessCount}
+								resetTiles={resetTiles}
 							/>
 						)}
 					</Box>
