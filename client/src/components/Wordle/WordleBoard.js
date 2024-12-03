@@ -47,11 +47,15 @@ const WordleBoard = ({ user }) => {
 		setAnswerCount(tempAnswerCount);
 	};
 
+	//code below checks how many of each letter are in the correct place
+	// need to track correct placement and correct letters of wrong placement
+	//		correct instances can't exceed answer?
 	const correctGuessLetters = (guess) => {
 		const tempGuessCount = {};
-		const sortedGuess = guess.split('').sort().join('');
-		for (const letter of sortedGuess) {
-			if (answer.includes(letter)) {
+
+		for (let i = 0; i < guess.length; i++) {
+			const letter = guess[i];
+			if (letter === answer[i]) {
 				if (tempGuessCount[letter]) {
 					tempGuessCount[letter]++;
 				} else {
@@ -59,8 +63,20 @@ const WordleBoard = ({ user }) => {
 				}
 			}
 		}
+
 		setCorrectGuessCount(tempGuessCount);
 	};
+
+	// const sortedGuess = guess.split('').sort().join('');
+	// for (const letter of sortedGuess) {
+	// 	if (answer.includes(letter)) {
+	// 		if (tempGuessCount[letter]) {
+	// 			tempGuessCount[letter]++;
+	// 		} else {
+	// 			tempGuessCount[letter] = 1;
+	// 		}
+	// 	}
+	// }
 
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
@@ -231,7 +247,12 @@ const WordleBoard = ({ user }) => {
 						{index === currentRow ? (
 							<InputRow currentGuess={currentGuess} />
 						) : (
-							<WordleRow letters={letters} answer={answer} />
+							<WordleRow
+								letters={letters}
+								answer={answer}
+								answerCount={answerCount}
+								correctGuessCount={correctGuessCount}
+							/>
 						)}
 					</Box>
 				))}
