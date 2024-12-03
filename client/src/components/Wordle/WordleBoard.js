@@ -31,12 +31,30 @@ const WordleBoard = ({ user }) => {
 	const [highStreak, setHighStreak] = useState(user.streakle_high_streak);
 	const [newHighScore, setNewHighScore] = useState(false);
 	const [newHighStreak, setNewHighStreak] = useState(false);
+	const [answerCount, setAnswerCount] = useState({});
+
+	const countAnswerLetters = (answer) => {
+		const tempAnswerCount = {};
+		const sortedAnswer = answer.split('').sort().join('');
+		for (const letter of sortedAnswer) {
+			if (tempAnswerCount[letter]) {
+				tempAnswerCount[letter]++;
+			}
+			tempAnswerCount[letter] = 1;
+		}
+		setAnswerCount(tempAnswerCount);
+	};
 
 	useEffect(() => {
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
+		countAnswerLetters(newAnswer);
 		console.log(newAnswer);
 	}, []);
+
+	useEffect(() => {
+		console.log('Updated answerCount:', answerCount);
+	}, [answerCount]);
 
 	const updateUserScoreAndStreak = () => {
 		fetch(`http://localhost:5001/user/${user.id}`, {

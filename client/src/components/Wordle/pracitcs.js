@@ -11,18 +11,39 @@ const countAnswerLetters = (answer) => {
 };
 
 //create state to hold guess letters
-const [guessCount, setGuessCount] = useState({});
+const [correctGuessCount, setCorrectGuessCount] = useState({});
 
-const countGuessLetters = (letter) => {
+const correctGuessLetters = (guess) => {
 	const tempGuessCount = {};
-
-	if (tempGuessCount[letter]) {
-		tempGuessCount[letter]++;
+	const sortedGuess = guess.sort();
+	for (const letter of sortedGuess) {
+		if (answer.includes(letter)) {
+			if (tempGuessCount[letter]) {
+				tempGuessCount[letter]++;
+			}
+			tempGuessCount[letter] = 1;
+		}
 	}
-	tempGuessCount[letter] = 1;
-
-	setGuessCount(tempGuessCount);
+	setCorrectGuessCount(tempGuessCount);
 };
+
+let tileClass = 'wordle-tile';
+if (letter && index < answer.length) {
+	const isCorrect = letter === answer[index];
+	const isPresent = !isCorrect && answer.includes(letter);
+	if (isCorrect) {
+		tileClass = 'correct';
+	}
+	if (isPresent) {
+		if (correctGuessCount[letter] >= answerCount[letter]) {
+			tileClass = 'wrong';
+		} else {
+			tileClass = 'present';
+		}
+	} else {
+		tileClass = 'wrong';
+	}
+}
 
 //will need to reset setGuessCount after everySubmit
 
