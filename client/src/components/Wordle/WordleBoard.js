@@ -53,10 +53,10 @@ const WordleBoard = ({ user }) => {
 		const tempPresentCount = {};
 		for (const letter of guess) {
 			if (answer.includes(letter)) {
-				const totalGuessCount =
-					(correctGuessCount[letter] || 0) + (tempPresentCount[letter] || 0);
-				if (totalGuessCount < answerCount[letter]) {
-					tempPresentCount[letter] = (tempPresentCount[letter] || 0) + 1;
+				if (tempPresentCount[letter]) {
+					tempPresentCount[letter]++;
+				} else {
+					tempPresentCount[letter] = 1;
 				}
 			}
 		}

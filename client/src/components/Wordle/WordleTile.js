@@ -30,14 +30,12 @@ const WordleTile = ({
 			const isCorrect = letter === answer[index];
 			const isPresent = !isCorrect && answer.includes(letter);
 
+			console.log('TileCorrect', tileCorrectGuessCount);
+			console.log('tileAnswer', tileAnswerCount);
 			if (isCorrect) {
 				newTileClass = 'correct';
 			} else if (isPresent) {
-				// Calculate total usage of this letter
-				const totalGuessCount =
-					(tileCorrectGuessCount[letter] || 0) +
-					(tilePresentGuessCount[letter] || 0);
-				if (totalGuessCount < tileAnswerCount[letter]) {
+				if ((correctGuessCount[letter] || 0) < (answerCount[letter] || 0)) {
 					newTileClass = 'present';
 				} else {
 					newTileClass = 'wrong';
