@@ -1,11 +1,11 @@
 const countAnswerLetters = (answer) => {
 	const answerCount = {};
-	const sortedAnswer = answer.sort();
+	const sortedAnswer = answer.split('').sort().join('');
 	for (const letter of sortedAnswer) {
 		if (answerCount[letter]) {
 			answerCount[letter]++;
 		}
-		answerCount[answer] = 1;
+		answerCount[letter] = 1;
 	}
 	return answerCount;
 };
@@ -15,7 +15,7 @@ const [correctGuessCount, setCorrectGuessCount] = useState({});
 
 const correctGuessLetters = (guess) => {
 	const tempGuessCount = {};
-	const sortedGuess = guess.sort();
+	const sortedGuess = guess.split('').sort().join('');
 	for (const letter of sortedGuess) {
 		if (answer.includes(letter)) {
 			if (tempGuessCount[letter]) {

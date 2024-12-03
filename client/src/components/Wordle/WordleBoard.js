@@ -32,6 +32,7 @@ const WordleBoard = ({ user }) => {
 	const [newHighScore, setNewHighScore] = useState(false);
 	const [newHighStreak, setNewHighStreak] = useState(false);
 	const [answerCount, setAnswerCount] = useState({});
+	const [correctGuessCount, setCorrectGuessCount] = useState({});
 
 	const countAnswerLetters = (answer) => {
 		const tempAnswerCount = {};
@@ -39,10 +40,26 @@ const WordleBoard = ({ user }) => {
 		for (const letter of sortedAnswer) {
 			if (tempAnswerCount[letter]) {
 				tempAnswerCount[letter]++;
+			} else {
+				tempAnswerCount[letter] = 1;
 			}
-			tempAnswerCount[letter] = 1;
 		}
 		setAnswerCount(tempAnswerCount);
+	};
+
+	const correctGuessLetters = (guess) => {
+		const tempGuessCount = {};
+		const sortedGuess = guess.split('').sort().join('');
+		for (const letter of sortedGuess) {
+			if (answer.includes(letter)) {
+				if (tempGuessCount[letter]) {
+					tempGuessCount[letter]++;
+				} else {
+					tempGuessCount[letter] = 1;
+				}
+			}
+		}
+		setCorrectGuessCount(tempGuessCount);
 	};
 
 	useEffect(() => {
@@ -53,8 +70,12 @@ const WordleBoard = ({ user }) => {
 	}, []);
 
 	useEffect(() => {
+		console.log('Updated correctGuessCount', correctGuessCount);
+	});
+
+	useEffect(() => {
 		console.log('Updated answerCount:', answerCount);
-	}, [answerCount]);
+	}, [answer]);
 
 	const updateUserScoreAndStreak = () => {
 		fetch(`http://localhost:5001/user/${user.id}`, {
@@ -101,6 +122,7 @@ const WordleBoard = ({ user }) => {
 		console.log(newAnswer);
 		setGameStatus('ongoing');
 		console.log('resetBoard');
+		countAnswerLetters(newAnswer);
 	};
 	const resetGame = () => {
 		setRows(Array(6).fill(Array(5).fill('')));
@@ -118,11 +140,13 @@ const WordleBoard = ({ user }) => {
 		setNewHighScore(false);
 		setNewHighStreak(false);
 		console.log('reset game');
+		countAnswerLetters(newAnswer);
 	};
 
 	const handleSubmit = () => {
 		console.log('handle submit');
 		if (currentGuess.length === 5) {
+			correctGuessLetters(currentGuess);
 			const newRow = currentGuess.split('');
 			const updatedRows = [...rows];
 			updatedRows[currentRow] = newRow;
