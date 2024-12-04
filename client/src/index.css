@@ -204,18 +204,60 @@ button:focus {
 }
 
 .login-input {
+	width: 100%;
+	padding: 0 5px;
+	height: 40px;
+	font-size: 16px;
+	border: none;
+	border-bottom: 2px solid #adadad;
+	border-radius: 0px;
+	background: none;
+	outline: none;
 	margin-bottom: 10px;
 }
 
 .login-title {
 	text-align: center;
 	font-weight: bold;
-	font-size: large;
+	font-size: x-large;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #adadad;
+	padding: 20px;
+	width: 100%;
 }
 
 .login-form {
 	width: 330px;
-	background-color: rgb(229, 239, 240);
 	padding: 15px;
 	border-radius: 15px;
+	background-color: white;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background: linear-gradient(120deg, #ffffff, #d7f5f7);
+	height: 100vh;
+	overflow: hidden;
+}
+
+.login-label {
+	color: #adadad;
+	margin-bottom: 0px;
+}
+
+.signup-text {
+	text-align: center;
+}
+
+.signup-link {
+	color: blue;
+	cursor: pointer;
+}
+
+.login-create-button {
+	width: 200px;
 }

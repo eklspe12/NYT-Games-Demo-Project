@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Text, Box, Input, Button } from '@chakra-ui/react';
+import {
+	Text,
+	Box,
+	Input,
+	Button,
+	FormControl,
+	FormLabel,
+} from '@chakra-ui/react';
 import { Filter } from 'bad-words';
 
 const Login = ({ setLoggedIn, user, setUser }) => {
@@ -19,6 +26,20 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 		setNewPassword('');
 		setUsername('');
 		setNewUsername('');
+	};
+
+	const inputStyle = {
+		border: 'none',
+		borderBottom: '2px solid #adadad', // Solid line at the bottom
+		_focus: {
+			borderBottom: '2px solid #2691d9',
+			borderRadius: '0px',
+			boxShadow: 'none',
+			outline: 'none', // Change color when focused
+		},
+		_placeholder: {
+			color: 'transparent', // Hide the placeholder if you want
+		},
 	};
 
 	const handleLogin = async () => {
@@ -85,6 +106,7 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 		}
 		return null;
 	};
+
 	const handleAccountCreation = async (e) => {
 		e.preventDefault();
 		const validationError = validateUsername(newUsername);
@@ -136,48 +158,89 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 			{toggleLogin ? (
 				<Box>
 					<Text className="login-title">Login</Text>
-					<Input
-						className="login-input"
-						placeholder={'Username'}
-						onChange={(e) => setUsername(e.target.value)}
-						value={username}
-					/>
-					<Input
-						className="login-input"
-						placeholder={'Password'}
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-					<Button onClick={handleLogin}>Login</Button>
-					<Button onClick={handleToggle}>Create An Account</Button>
+					<FormControl>
+						<FormLabel className="login-label">Username</FormLabel>
+						<Input
+							className="login-input"
+							onChange={(e) => setUsername(e.target.value)}
+							value={username}
+							sx={inputStyle}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel className="login-label">Password</FormLabel>
+						<Input
+							className="login-input"
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							sx={inputStyle}
+						/>
+					</FormControl>
+					<Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+						<Button onClick={handleLogin} className="login-create-button">
+							Login
+						</Button>
+						<Text className="signup-text">
+							Need an account?{' '}
+							<span className="signup-link" onClick={handleToggle}>
+								Signup
+							</span>
+						</Text>
+						<Text textAlign={'center'}>
+							*For demo purposes, feel free to use login 'username' and
+							'Password1!'
+						</Text>
+					</Box>
+
 					{message !== null ? <Text>{message}</Text> : null}
 				</Box>
 			) : (
 				<Box>
 					<Text className="login-title">Create An Account</Text>
-					<Input
-						className="login-input"
-						placeholder={'Create Username'}
-						value={newUsername}
-						onChange={(e) => setNewUsername(e.target.value)}
-					/>
-					<Input
-						className="login-input"
-						placeholder={'Create Password'}
-						onChange={(e) => setNewPassword(e.target.value)}
-						type="password"
-						value={newPassword}
-					/>
-					<Input
-						className="login-input"
-						placeholder={'Confirm Password'}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						type="password"
-						value={confirmPassword}
-					/>
-					<Button onClick={handleAccountCreation}>Create Account</Button>
-					<Button onClick={handleToggle}>Go Back</Button>
+					<FormControl>
+						<FormLabel className="login-label">Create Username</FormLabel>
+						<Input
+							className="login-input"
+							value={newUsername}
+							onChange={(e) => setNewUsername(e.target.value)}
+							sx={inputStyle}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel className="login-label">Create Password</FormLabel>
+						<Input
+							className="login-input"
+							onChange={(e) => setNewPassword(e.target.value)}
+							type="password"
+							value={newPassword}
+							sx={inputStyle}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel className="login-label">Confirm Password</FormLabel>
+						<Input
+							className="login-input"
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							type="password"
+							value={confirmPassword}
+							sx={inputStyle}
+						/>
+					</FormControl>
+					<Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+						<Button
+							onClick={handleAccountCreation}
+							className="login-create-button"
+						>
+							Create Account
+						</Button>
+						<Text className="signup-text">
+							Have an account?{' '}
+							<span className="signup-link" onClick={handleToggle}>
+								Login
+							</span>
+						</Text>
+					</Box>
 					{message !== null ? <Text>{message}</Text> : null}
 				</Box>
 			)}
