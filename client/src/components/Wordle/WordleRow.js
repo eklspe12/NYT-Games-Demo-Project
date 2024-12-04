@@ -25,7 +25,6 @@ const WordleRow = ({
 					presentGuessCount={presentGuessCount}
 					resetTiles={resetTiles}
 				/>
-				//likely need to pass answercount and guess count arrays into function
 			))}
 		</Box>
 	);

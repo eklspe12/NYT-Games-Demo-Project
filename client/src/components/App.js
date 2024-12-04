@@ -1,10 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ChakraProvider, Button, Box, Heading } from '@chakra-ui/react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import SpellingBee from './SpellingBee/SpellingBee';
-import Home from './Home';
 import Wordle from './Wordle/Wordle';
-import ViewStats from './ViewStats';
 import Login from './Login';
 import LogoutMessage from './Wordle/LogoutMessgae';
 

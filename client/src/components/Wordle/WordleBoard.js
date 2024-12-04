@@ -9,7 +9,6 @@ import WrongLetterDisplay from './WrongLetterDisplay';
 import WelcomeMessage from './WelcomeMessage';
 import EndGameLoseMessage from './EndGameLoseMessage';
 import EndGameWinMessage from './EndGameWinMessage';
-import WordleKeyboard from './WordleKeyboard';
 import HighScoreDisplay from './HighScoreDisplay';
 import HighStreakDisplay from './HighStreakDisplay';
 import {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import WordleTile from './WordleTile';
 const InputRow = ({ currentGuess, setSubmitted, submitted }) => {
 	return (
