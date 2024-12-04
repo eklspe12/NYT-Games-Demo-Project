@@ -4,8 +4,8 @@ import { Input, Box, Button } from '@chakra-ui/react';
 const Submit = ({ handleSubmit, currentGuess, setCurrentGuess }) => {
 	const handleKeyDown = (event) => {
 		if (event.key === 'Enter') {
-			event.preventDefault(); // Prevent default form submission
-			handleSubmit(); // Call handleSubmit directly
+			event.preventDefault();
+			handleSubmit();
 		}
 	};
 	const handleChange = (event) => {
@@ -21,10 +21,6 @@ const Submit = ({ handleSubmit, currentGuess, setCurrentGuess }) => {
 				onChange={(e) => {
 					handleChange(e);
 				}}
-				// onChange={(e) => {
-				// 	const value = e.target.value.toLowerCase();
-				// 	if (value.length <= 5) setCurrentGuess(value);
-				// }}
 				onKeyDown={handleKeyDown}
 				maxLength={5}
 				placeholder="Enter your guess"

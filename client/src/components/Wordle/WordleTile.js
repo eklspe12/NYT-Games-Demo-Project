@@ -30,8 +30,6 @@ const WordleTile = ({
 			const isCorrect = letter === answer[index];
 			const isPresent = !isCorrect && answer.includes(letter);
 
-			console.log('TileCorrect', tileCorrectGuessCount);
-			console.log('tileAnswer', tileAnswerCount);
 			if (isCorrect) {
 				newTileClass = 'correct';
 			} else if (isPresent) {

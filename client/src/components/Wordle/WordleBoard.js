@@ -93,18 +93,6 @@ const WordleBoard = ({ user }) => {
 		console.log(newAnswer);
 	}, []);
 
-	useEffect(() => {
-		console.log('Updated correctGuessCount', correctGuessCount);
-	});
-
-	useEffect(() => {
-		console.log('Updated answerCount:', answerCount);
-	}, [answer]);
-
-	useEffect(() => {
-		console.log('Present letters:', presentGuessCount);
-	}, [presentGuessCount]);
-
 	const updateUserScoreAndStreak = () => {
 		fetch(`http://localhost:5001/user/${user.id}`, {
 			method: 'PATCH',
@@ -176,7 +164,6 @@ const WordleBoard = ({ user }) => {
 	};
 
 	const handleSubmit = () => {
-		console.log('handle submit');
 		if (currentGuess.length === 5) {
 			correctGuessLetters(currentGuess);
 			countPresentLetters(currentGuess);
@@ -201,8 +188,6 @@ const WordleBoard = ({ user }) => {
 				setTimeout(() => {
 					resetBoard();
 				}, 1500);
-
-				console.log(guessNum);
 			} else {
 				setMessage('');
 				setGuessNum(guessNum + 1);
@@ -228,9 +213,6 @@ const WordleBoard = ({ user }) => {
 						console.log('game status should be lose');
 					}
 				}
-
-				console.log(`Guess number: ${guessNum}`);
-				console.log(`Used letters: ${wrongLetters}`);
 			}
 			setCurrentGuess('');
 		} else {
