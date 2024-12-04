@@ -24,7 +24,9 @@ function App() {
 				/>
 			) : null}
 			{!loggedIn ? (
-				<Login setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
+				<Box className="login-container">
+					<Login setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
+				</Box>
 			) : (
 				<Router>
 					<Box>

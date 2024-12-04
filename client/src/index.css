@@ -195,3 +195,27 @@ button:focus {
 	margin-bottom: 10px;
 	font-size: x-large;
 }
+
+.login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+.login-input {
+	margin-bottom: 10px;
+}
+
+.login-title {
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+}
+
+.login-form {
+	width: 330px;
+	background-color: rgb(229, 239, 240);
+	padding: 15px;
+	border-radius: 15px;
+}

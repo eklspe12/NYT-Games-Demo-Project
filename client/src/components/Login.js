@@ -132,16 +132,18 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 	};
 
 	return (
-		<Box>
+		<Box className="login-form">
 			{toggleLogin ? (
-				<Box width={300}>
-					<Text>Login</Text>
+				<Box>
+					<Text className="login-title">Login</Text>
 					<Input
+						className="login-input"
 						placeholder={'Username'}
 						onChange={(e) => setUsername(e.target.value)}
 						value={username}
 					/>
 					<Input
+						className="login-input"
 						placeholder={'Password'}
 						type="password"
 						value={password}
@@ -152,20 +154,23 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 					{message !== null ? <Text>{message}</Text> : null}
 				</Box>
 			) : (
-				<Box width={300}>
-					<Text>Create An Account</Text>
+				<Box>
+					<Text className="login-title">Create An Account</Text>
 					<Input
+						className="login-input"
 						placeholder={'Create Username'}
 						value={newUsername}
 						onChange={(e) => setNewUsername(e.target.value)}
 					/>
 					<Input
+						className="login-input"
 						placeholder={'Create Password'}
 						onChange={(e) => setNewPassword(e.target.value)}
 						type="password"
 						value={newPassword}
 					/>
 					<Input
+						className="login-input"
 						placeholder={'Confirm Password'}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						type="password"
