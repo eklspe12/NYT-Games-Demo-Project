@@ -244,12 +244,13 @@ const WordleBoard = ({ user }) => {
 				<EndGameWinMessage
 					score={score}
 					streak={streak}
+					answer={answer}
 					resetGame={resetGame}
 					newHighScore={newHighScore}
 					newHighStreak={newHighStreak}
 				/>
 			) : gameStatus === 'lose' ? (
-				<EndGameLoseMessage resetGame={resetGame} />
+				<EndGameLoseMessage resetGame={resetGame} answer={answer} />
 			) : (
 				''
 			)}

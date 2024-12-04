@@ -15,8 +15,10 @@ const EndGameWinMessage = ({
 	resetGame,
 	newHighScore,
 	newHighStreak,
+	answer,
 }) => {
 	const [isOpen, setIsOpen] = useState(true);
+	const answerDisplay = answer.toUpperCase();
 
 	const closeModal = () => {
 		setIsOpen(false);
@@ -34,7 +36,7 @@ const EndGameWinMessage = ({
 				) : (
 					<ModalHeader>Congrats!</ModalHeader>
 				)}
-
+				<ModalHeader>{answerDisplay} was the final word.</ModalHeader>
 				<ModalBody>
 					You scored {score} points and guessed {streak} words correct!
 				</ModalBody>

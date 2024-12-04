@@ -9,8 +9,9 @@ import {
 	ModalHeader,
 } from '@chakra-ui/react';
 
-const EndGameLoseMessage = ({ resetGame }) => {
+const EndGameLoseMessage = ({ resetGame, answer }) => {
 	const [isOpen, setIsOpen] = useState(true);
+	const displayAnswer = answer.toUpperCase();
 
 	const closeModal = () => {
 		setIsOpen(false);
@@ -19,6 +20,7 @@ const EndGameLoseMessage = ({ resetGame }) => {
 		<Modal isOpen={isOpen} onClose={closeModal}>
 			<ModalOverlay />
 			<ModalContent>
+				<ModalHeader>{displayAnswer} was the word.</ModalHeader>
 				<ModalHeader>Tough Luck...</ModalHeader>
 				<ModalBody>
 					Ouch! Looks like you weren't able to get the word this time. But don't
