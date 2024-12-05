@@ -11,13 +11,7 @@ import EndGameLoseMessage from './EndGameLoseMessage';
 import EndGameWinMessage from './EndGameWinMessage';
 import HighScoreDisplay from './HighScoreDisplay';
 import HighStreakDisplay from './HighStreakDisplay';
-import {
-	wordArray,
-	usedWords,
-	newAnswer,
-	correctAnswer,
-	randomWord,
-} from './WordList';
+import { wordArray, randomWord } from './WordList';
 import StreakDisplay from './StreakDisplay';
 const WordleBoard = ({ user }) => {
 	const [rows, setRows] = useState(Array(6).fill(Array(5).fill('')));

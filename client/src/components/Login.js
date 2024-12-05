@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { Filter } from 'bad-words';
 
-const Login = ({ setLoggedIn, user, setUser }) => {
+const Login = ({ setLoggedIn, setUser }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [toggleLogin, setToggleLogin] = useState(true);

@@ -3,7 +3,6 @@ import WordleTile from './WordleTile';
 import { Box } from '@chakra-ui/react';
 
 const WordleRow = ({
-	key,
 	letters,
 	answer,
 	answerCount,

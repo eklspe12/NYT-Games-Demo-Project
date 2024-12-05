@@ -28,13 +28,12 @@ function App() {
 					<LogoutMessage
 						setLoggingOut={setLoggingOut}
 						setLoggedIn={setLoggedIn}
-						user={user}
 						setUser={setUser}
 					/>
 				) : null}
 				{!loggedIn ? (
 					<Box className="login-container">
-						<Login setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
+						<Login setLoggedIn={setLoggedIn} setUser={setUser} />
 					</Box>
 				) : (
 					<Router>

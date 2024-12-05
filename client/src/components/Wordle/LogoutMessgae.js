@@ -9,7 +9,7 @@ import {
 	ModalHeader,
 } from '@chakra-ui/react';
 
-const LogoutMessage = ({ setLoggingOut, setLoggedIn, user, setUser }) => {
+const LogoutMessage = ({ setLoggingOut, setLoggedIn, setUser }) => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	const handleLogoutAndClearSession = async () => {
