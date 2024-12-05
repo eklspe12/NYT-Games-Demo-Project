@@ -31,6 +31,7 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 	const inputStyle = {
 		border: 'none',
 		borderBottom: '2px solid #adadad',
+		borderRadius: '0px',
 		_focus: {
 			borderBottom: '2px solid #2691d9',
 			borderRadius: '0px',
@@ -193,7 +194,9 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 						</Text>
 					</Box>
 
-					{message !== null ? <Text>{message}</Text> : null}
+					{message !== null ? (
+						<Text className="login-message">{message}</Text>
+					) : null}
 				</Box>
 			) : (
 				<Box>
@@ -241,7 +244,11 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 							</span>
 						</Text>
 					</Box>
-					{message !== null ? <Text>{message}</Text> : null}
+					{message !== null ? (
+						<Text className="login-message" color={'red'}>
+							{message}
+						</Text>
+					) : null}
 				</Box>
 			)}
 		</Box>

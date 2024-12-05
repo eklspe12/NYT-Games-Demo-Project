@@ -94,25 +94,6 @@ code {
 .flip-content > div {
 	backface-visibility: hidden;
 }
-.keyboard-container {
-	display: flex;
-	justify-content: center;
-	padding: 20px;
-	width: 100%;
-}
-
-.keyboard {
-	display: grid;
-	grid-template-columns: repeat(10, 1fr); /* 10 buttons per row */
-	gap: 8px; /* Space between buttons */
-	width: 100%; /* Ensure the keyboard takes up full width */
-}
-
-.keyboard-row {
-	display: grid;
-	grid-template-columns: repeat(10, 1fr); /* 10 buttons per row */
-	gap: 8px;
-}
 
 button {
 	padding: 10px;
@@ -123,29 +104,6 @@ button {
 	background-color: #f0f0f0;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
-}
-
-button.correct-button {
-	background-color: green;
-	color: white;
-}
-
-button.present-button {
-	background-color: yellow;
-	color: black;
-}
-
-button.wrong-button {
-	background-color: gray;
-	color: white;
-}
-
-button:active {
-	background-color: #ddd; /* A slight shade change when button is pressed */
-}
-
-button:focus {
-	outline: none;
 }
 
 .wrong-letter-container {
@@ -260,4 +218,9 @@ body {
 
 .login-create-button {
 	width: 200px;
+}
+
+.login-message {
+	text-align: center;
+	color: red;
 }
