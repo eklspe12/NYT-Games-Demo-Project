@@ -65,9 +65,6 @@ const WordleBoard = ({ user }) => {
 		setPresentGuessCount(tempPresentCount);
 	};
 
-	//code below checks how many of each letter are in the correct place
-	// need to track correct placement and correct letters of wrong placement
-	//		correct instances can't exceed answer?
 	const correctGuessLetters = (guess) => {
 		const tempGuessCountCorrectPlace = {};
 
@@ -134,32 +131,18 @@ const WordleBoard = ({ user }) => {
 		const newAnswer = randomWord(wordArray);
 		setAnswer(newAnswer);
 		setMessage(streak > 0 ? `Streak Bonus +${streak * 500}!` : 'New Word!');
-		console.log(newAnswer);
 		setGameStatus('ongoing');
-		console.log('resetBoard');
 		countAnswerLetters(newAnswer);
 		setResetTiles(true);
 		setTimeout(() => setResetTiles(false), 0);
 	};
 	const resetGame = () => {
-		setRows(Array(6).fill(Array(5).fill('')));
-		setCurrentRow(0);
+		resetBoard();
 		setScore(0);
 		setStreak(0);
-		setCurrentGuess('');
-		setGuessNum(1);
-		setWrongLetters([]);
-		const newAnswer = randomWord(wordArray);
-		setAnswer(newAnswer);
 		setMessage('');
-		console.log(newAnswer);
-		setGameStatus('ongoing');
 		setNewHighScore(false);
 		setNewHighStreak(false);
-		console.log('reset game');
-		countAnswerLetters(newAnswer);
-		setResetTiles(true);
-		setTimeout(() => setResetTiles(false), 0);
 	};
 
 	const handleSubmit = () => {

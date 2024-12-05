@@ -37,7 +37,6 @@ const EndGameLoseMessage = ({ resetGame, answer }) => {
 					>
 						Play Again
 					</Button>
-					{/* maybe add a logout button here, or a return home/viewstats */}
 				</ModalFooter>
 			</ModalContent>
 		</Modal>

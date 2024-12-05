@@ -18,7 +18,6 @@ const LogoutMessage = ({ setLoggingOut, setLoggedIn, user, setUser }) => {
 				method: 'DELETE',
 			});
 			if (response.ok) {
-				console.log('Logout Successful');
 				setLoggedIn(false);
 				setLoggingOut(false);
 				closeModal();

@@ -28,16 +28,10 @@ function App() {
 				<Router>
 					<Box>
 						<Routes>
-							{/* <Route
-								path="/"
-								element={<Home setLoggingOut={setLoggingOut} />}
-							/> */}
 							<Route
 								path="/wordle"
 								element={<Wordle user={user} setLoggingOut={setLoggingOut} />}
 							/>
-							{/* <Route path="/spelling-bee" element={<SpellingBee />} />
-							<Route path="/stats" element={<ViewStats />} /> */}
 						</Routes>
 					</Box>
 				</Router>

@@ -30,15 +30,15 @@ const Login = ({ setLoggedIn, user, setUser }) => {
 
 	const inputStyle = {
 		border: 'none',
-		borderBottom: '2px solid #adadad', // Solid line at the bottom
+		borderBottom: '2px solid #adadad',
 		_focus: {
 			borderBottom: '2px solid #2691d9',
 			borderRadius: '0px',
 			boxShadow: 'none',
-			outline: 'none', // Change color when focused
+			outline: 'none',
 		},
 		_placeholder: {
-			color: 'transparent', // Hide the placeholder if you want
+			color: 'transparent',
 		},
 	};
 
