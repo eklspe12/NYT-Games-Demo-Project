@@ -4,7 +4,8 @@ from flask_cors import CORS
 from flask_restful import Resource, Api
 import os
 from server.models import User
-from server.config import app, db, api
+from config import db, api
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -27,11 +28,12 @@ app.jsonify_compatibility = False
 
 CORS(app)
 
+db.init_app(app)
+
 
 migrate = Migrate(app, db)
 
 
-db.init_app(app)
 
 
 api = Api(app)
