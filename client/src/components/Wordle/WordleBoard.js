@@ -84,7 +84,7 @@ const WordleBoard = ({ user }) => {
 	}, []);
 
 	const updateUserScoreAndStreak = () => {
-		fetch(`http://localhost:5001/user/${user.id}`, {
+		fetch(`user/${user.id}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
