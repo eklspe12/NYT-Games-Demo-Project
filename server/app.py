@@ -5,6 +5,8 @@ from flask_restful import Resource, Api
 import os
 from models import User
 from config import app, db, api
+from dotenv import load_dotenv
+load_dotenv()
 
 random_key = os.urandom(24)
 
@@ -126,5 +128,3 @@ class UserResource(Resource):
 
 api.add_resource(UserResource, '/user/<int:user_id>')
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=(True))
