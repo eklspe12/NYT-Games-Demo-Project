@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, send_from_directory
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_restful import Resource, Api
@@ -18,7 +18,7 @@ DATABASE = os.environ.get(
 
 app = Flask(__name__, 
             static_url_path='',
-            static_folder='../client/build',
+            static_folder='../client/build/static',
             template_folder='../client/build')
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -39,7 +39,7 @@ api = Api(app)
 @app.route('/')
 @app.route('/<int:id>')
 def index(id=0):
-    return render_template("index.html")
+    return send_from_directory(os.path.join(BASE_DIR, '../client/build'), 'index.html')
 
 
 class ClearSession(Resource):
