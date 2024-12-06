@@ -1,0 +1,226 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+.flip-tile {
+	position: relative;
+	text-align: center;
+	perspective: 1000px;
+}
+/* backup */
+
+.flip-content {
+	width: 100%;
+	height: 100%;
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+.wordle-tile {
+	border: 5px solid black;
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	font-weight: bold;
+	perspective: 1000px;
+}
+
+.correct {
+	border: 5px solid green;
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	font-weight: bold;
+	background-color: green;
+	color: white;
+}
+
+.present {
+	border: 5px solid rgb(232, 240, 109);
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	background-color: rgb(232, 240, 109);
+}
+
+.wrong {
+	border: 5px solid black;
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	background-color: black;
+}
+
+.submitted {
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+}
+
+.submitted .flip-content {
+	transform: rotateY(180deg);
+}
+.wordle-tile,
+.flip-content > div {
+	backface-visibility: hidden;
+}
+
+button {
+	padding: 10px;
+	font-size: 18px;
+	text-transform: uppercase;
+	border-radius: 5px;
+	border: none;
+	background-color: #f0f0f0;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.wrong-letter-container {
+	margin: 10px;
+	text-align: center;
+	width: 230px;
+}
+
+.wrong-letter-title {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+.wrong-letters {
+	font-size: large;
+	color: lightcoral;
+}
+
+.high-score-title,
+.high-streak-title,
+.score-title,
+.streak-title {
+	color: green;
+	font-weight: bold;
+	font-size: large;
+}
+
+.high-score-number,
+.high-streak-number,
+.score-number,
+.streak-number {
+	font-size: xx-large;
+}
+
+.high-score-container,
+.high-streak-container,
+.score-container,
+.streak-container {
+	text-align: center;
+	margin-bottom: 10px;
+	padding: 10px;
+	padding-top: 3px;
+	width: 230px;
+}
+
+.message {
+	margin-bottom: 10px;
+	font-size: x-large;
+}
+
+.login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+}
+
+.login-input {
+	width: 100%;
+	padding: 0 5px;
+	height: 40px;
+	font-size: 16px;
+	border: none;
+	border-bottom: 2px solid #adadad;
+	border-radius: 0px;
+	background: none;
+	outline: none;
+	margin-bottom: 10px;
+}
+
+.login-title {
+	text-align: center;
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #adadad;
+	padding: 20px;
+	width: 100%;
+}
+
+.login-form {
+	width: 330px;
+	padding: 15px;
+	border-radius: 15px;
+	background-color: white;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background: linear-gradient(120deg, #ffffff, #d7f5f7);
+	height: 100vh;
+	overflow: hidden;
+}
+
+.login-label {
+	color: #adadad;
+	margin-bottom: 0px;
+}
+
+.signup-text {
+	text-align: center;
+}
+
+.signup-link {
+	color: blue;
+	cursor: pointer;
+}
+
+.login-create-button {
+	width: 200px;
+}
+
+.login-message {
+	text-align: center;
+	color: red;
+}
