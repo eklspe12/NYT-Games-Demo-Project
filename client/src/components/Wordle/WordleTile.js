@@ -51,6 +51,9 @@ const WordleTile = ({
 		tileCorrectGuessCount,
 		tileAnswerCount,
 		tilePresentGuessCount,
+		correctGuessCount,
+		answerCount,
+		presentGuessCount,
 	]);
 
 	return <Box className={tileClass}>{letter.toUpperCase()}</Box>;
