@@ -3,8 +3,8 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_restful import Resource, Api
 import os
-from models import User
-from config import app, db, api
+from server.models import User
+from server.config import app, db, api
 from dotenv import load_dotenv
 load_dotenv()
 
