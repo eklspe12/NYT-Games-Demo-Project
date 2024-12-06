@@ -18,7 +18,7 @@ DATABASE = os.environ.get(
 
 app = Flask(__name__, 
             static_url_path='',
-            static_folder='../client/build/static',
+            static_folder='../client/build',
             template_folder='../client/build')
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -39,7 +39,7 @@ api = Api(app)
 @app.route('/')
 @app.route('/<int:id>')
 def index(id=0):
-    return send_from_directory(os.path.join(BASE_DIR, '../client/build'), 'index.html')
+    return render_template("index.html")
 
 
 class ClearSession(Resource):
