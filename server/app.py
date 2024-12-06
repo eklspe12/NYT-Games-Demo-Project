@@ -5,6 +5,8 @@ from flask_restful import Resource, Api
 import os
 from models import User
 from config import app, db, api
+from dotenv import load_dotenv
+load_dotenv()
 
 random_key = os.urandom(24)
 
